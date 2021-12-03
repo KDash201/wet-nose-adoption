@@ -14,8 +14,11 @@
     <section class="header">
       <div id="title name">
         Wet Nose Adoption
-        <nav>Favorites</nav>
-        <nav>About Us</nav>
+        <nav>
+          <a href="./index.html">Home</a>
+          <a href="./index.html">Favorites</a>
+          <a href="./index.html">About Us</a>
+        </nav>
       </div>
     </section>
   </header>
@@ -43,8 +46,8 @@
       <!-- Dog Age Criteria Section -->
       <form id="pet-criteria">
         <label for="age">Age:</label>
-        <select name="age" id="dog-age">
-          <option value=""></option>
+        <select name="age" id="dog-age" required>
+          <option hidden disabled selected value> -- select an option -- </option>
           <option value="puppy">Puppy</option>
           <option value="adult">Adult</option>
           <option value="senior">Senior</option>
@@ -52,21 +55,24 @@
 
         <!-- Dog Gender Criteria Section -->
         <label for="gender">Gender:</label>
-        <select name="gender" id="dog-gender">
-          <option value=""></option>
+        <select name="gender" id="dog-gender" required>
+          <option hidden disabled selected value> -- select an option -- </option>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
 
         <!-- Dog Size Criteria Section -->
         <label for="size">Size:</label>
-        <select name="size" id="dog-size">
-          <option value=""></option>
+        <select name="size" id="dog-size" required>
+          <option hidden disabled selected value> -- select an option -- </option>
           <option value="small">Small</option>
           <option value="medium">Medium</option>
           <option value="large">Large</option>
           <option value="extra large">Extra Large</option>
         </select>
+        <br><br>
+        <input type="submit" value="Submit">
+
 
 
       </form>
@@ -74,9 +80,8 @@
 
     <!-- Footer Section -->
     <footer>
-
       <!-- Slogan -->
-      <h2>"</h2>
+      <h2></h2>
       <div>
         <br />
         &copy; Wet Nose Adoption, Inc.
