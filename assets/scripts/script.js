@@ -1,23 +1,51 @@
+var accessToken 
 
-function getDogs(type) {
-    
-    var key = ""
-    var apiUrl = "https://api.petfinder.com/v2/animals?key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIwU2VWRzBaUHZPNjFMMllrQnpXTTRPZEFmR2pHMnUwM2JsVmE0SjhvY3pWclRyeU9PZSIsImp0aSI6Ijc3YmNkNTk1MmRmYTVmYjkxZWVjZjQ3YThlYzFiMDI2Y2ViNDI0Y2ZlYjgyZmNjMjE2NGViNzY0MWFkZmVjMjA0YTVhMWI3ZDkwMWVhZWQ3IiwiaWF0IjoxNjM4NDEyNTc1LCJuYmYiOjE2Mzg0MTI1NzUsImV4cCI6MTYzODQxNjE3NSwic3ViIjoiIiwic2NvcGVzIjpbXX0.uDTcCc0GekTzCdLYhL5SUfRWYFx4isiRkzmzFfZreIzAuj2BDrrhCKYVhwyJjvBvjiguQhuViLcfjGmI9H8VOw5fAST0GcJG4G8Hjuh8zXYUUP41nlmvWXVuwlv-eyWlERnt7oQDSR8rzAbWmtoWSCzCGpuIlulJQrflbJK_0PwOaz7LK40D3-l7HDYR7b5MoZGkznPHtheeASU91dZu71r61LL6KGA_fCAit15YpzqttirV_ftA6SNFF2WTXw7k441nziWXrSJvhsuy2sbI-jrKGsqYVCRnMgmnvmkSzzWvggJQT3rILN09VxrVPzTOXvDryxnBrIQvaj10FGzNrA"
-    fetch(apiUrl)
-      .then(function(response) {
-        if (response.ok) {
-            response.json().then(function(data) {
-                console.log(data)
+var getToken = function() {
+   var apiKey = "0SeVG0ZPvO61L2YkBzWM4OdAfGjG2u03blVa4J8oczVrTryOOe";
+   var apiSecret = "EUWQpf8k1Spgp2OJtWE6csrGwFBGwpQfHskVz7fI";
+  
+  fetch('https://api.petfinder.com/v2/oauth2/token', {method: 'POST',                                                           
+ headers: {
+      'Content-Type': 'application/json'
+    },
+body: JSON.stringify({grant_type: 'client_credentials',
+                      client_id:apiKey,
+                      client_secret: apiSecret})                                         
+                    }).then(function(response) {
+    return response.json();
+  }).then(function(data) {
+    console.log('data', data);
+    accessToken = data.access_token;
+    return accessToken;
+  })
 
-                if (response.headers.get("Link")) {
-                    console.log("bad")
-                }
-            })
+    .then(function(accessToken) {
+      fetch('https://api.petfinder.com/v2/animals', {
+        headers: {
+          Authorization: 'Bearer ' + accessToken
         }
-    })
-    .then(function(data) {
-        console.log(data)
-    })
+        
+      }).then(function(response) {
+        return response.json()
+      }).then(function(data) {
+        var animals = data.animals;
+        loopAndRenderAnimalsOnPage(animals);
+      })
+
+ 
+  
+
+}).catch(function(err) {
+    console.log('err', err);
+  });
+};
+
+function loopAndRenderAnimalsOnPage(animals) {
+  console.log('animals', animals);
+  for (var i = 0; i < animals.length; i++) {
+    console.log(animals[i].name + ': ' + animals[i].breeds.primary);
+    
+  }
 }
 
 function dogBreeds() {
@@ -34,6 +62,7 @@ function dogBreeds() {
     }
 
 
+
 dogBreeds()
 
-getDogs("animals")
+getToken();
