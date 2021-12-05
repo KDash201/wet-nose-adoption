@@ -35,45 +35,55 @@
     </div>
 
     <!-- Pet Finder Section/Criteria -->
-    <div class="pet-finder">
-      <form id="location">
-        <label for="city">Search City:</label>
-        <input type="text" name="Search Location" required>
-        <label for="state">Search State:</label>
-        <input type="text" name="Search Location" required>
-      </form>
+    <main class="flex-row justify-space-between">
+      <div class="col-12 col-md-4">
+        <div class="pet-finder">
+          <form id="location">
+            <label for="city">Search City:</label>
+            <input type="text" name="Search Location" required>
+            <label for="state">Search State:</label>
+            <input type="text" name="Search Location" required>
+          </form>
+        </div>
 
-      <!-- Dog Age Criteria Section -->
-      <form id="pet-criteria">
-        <label for="age">Age:</label>
-        <select name="age" id="dog-age" required>
-          <option hidden disabled selected value> -- select an option -- </option>
-          <option value="puppy">Puppy</option>
-          <option value="adult">Adult</option>
-          <option value="senior">Senior</option>
-        </select>
+          <!-- Dog Age Criteria Section -->
+          <div class="col-12 col-md-4">
+          <form id="pet-criteria">
+            <label for="age">Age:</label>
+            <select name="age" id="dog-age" required>
+              <option hidden disabled selected value> -- select an option -- </option>
+              <option value="puppy">Puppy</option>
+              <option value="adult">Adult</option>
+              <option value="senior">Senior</option>
+            </select>
+          </div>
 
-        <!-- Dog Gender Criteria Section -->
-        <label for="gender">Gender:</label>
-        <select name="gender" id="dog-gender" required>
-          <option hidden disabled selected value> -- select an option -- </option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
+            <!-- Dog Gender Criteria Section -->
+            <div class="col-12 col-md-4">
+            <label for="gender">Gender:</label>
+            <select name="gender" id="dog-gender" required>
+              <option hidden disabled selected value> -- select an option -- </option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
 
-        <!-- Dog Size Criteria Section -->
-        <label for="size">Size:</label>
-        <select name="size" id="dog-size" required>
-          <option hidden disabled selected value> -- select an option -- </option>
-          <option value="small">Small</option>
-          <option value="medium">Medium</option>
-          <option value="large">Large</option>
-          <option value="extra large">Extra Large</option>
-        </select>
-        <br><br>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
+            <!-- Dog Size Criteria Section -->
+            <div class="col-12 col-md-4">
+            <label for="size">Size:</label>
+            <select name="size" id="dog-size" required>
+              <option hidden disabled selected value> -- select an option -- </option>
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
+              <option value="extra large">Extra Large</option>
+            </select>
+            <br><br>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+    </main>
 
     <!-- Footer Section -->
     <footer>
