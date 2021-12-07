@@ -1,4 +1,5 @@
 var searchFormEl = document.getElementById("search-form");
+var dogResultsContainerEl = document.getElementById("dog-results")
 var city = "";
 var state = "";
 var age = "";
@@ -9,7 +10,7 @@ var accessToken
 var getToken = function() {
    var apiKey = "0SeVG0ZPvO61L2YkBzWM4OdAfGjG2u03blVa4J8oczVrTryOOe";
    var apiSecret = "EUWQpf8k1Spgp2OJtWE6csrGwFBGwpQfHskVz7fI";
-   var apiUrl = 'https://api.petfinder.com/v2/animals?type=dog&location=' + city + ', ' + state + '&age=' + age + '&size=' + size + '&gender=' + sex;
+   var apiUrl = 'https://api.petfinder.com/v2/animals?type=dog&location=' + city + '&location=' + state + '&age=' + age + '&size=' + size + '&gender=' + sex + "&sort=random";
   
    fetch('https://api.petfinder.com/v2/oauth2/token', {method: 'POST',                                                           
  headers: {
@@ -50,8 +51,71 @@ body: JSON.stringify({grant_type: 'client_credentials',
 function loopAndRenderAnimalsOnPage(animals) {
   console.log('animals', animals);
   for (var i = 0; i < animals.length; i++) {
-    console.log(animals[i].name + ': ' + animals[i].breeds.primary);
     
+    // create card for dog results
+    var cardContainerEl = document.createElement("div");
+    cardContainerEl.className = "card col-6";
+    dogResultsContainerEl.appendChild(cardContainerEl);
+
+    // add image to card
+    
+    var cardImageEl = document.createElement("img");
+    cardImageEl.className = "card-img-top";
+    if (animals[i].primary_photo_cropped){
+    cardImageEl.setAttribute("src", animals[i].primary_photo_cropped.small);
+    cardImageEl.setAttribute('alt', "dog profile picture");
+    } else {
+      cardImageEl.setAttribute("src", "./assets/images/dog-placeholder.png")
+    }
+    cardContainerEl.appendChild(cardImageEl);
+   
+    
+    // add body to card
+    var cardBodyEl = document.createElement("div");
+    cardBodyEl.className = "card-body";
+    cardContainerEl.appendChild(cardBodyEl);
+
+    // add title to card
+    var cardTitleEl = document.createElement("h5");
+    cardTitleEl.className = "card-title";
+    cardTitleEl.textContent = animals[i].name;
+    cardBodyEl.appendChild(cardTitleEl);
+
+    // add some data to card
+    var dataListEL = document.createElement("ul");
+    dataListEL.className = "list-group list-group-flush "
+    cardBodyEl.appendChild(dataListEL);
+
+    var dataListBreedEl = document.createElement("li");
+    dataListBreedEl.className = "list-group-item";
+    dataListBreedEl.textContent = "Breed: " + animals[i].breeds.primary;
+    dataListEL.appendChild(dataListBreedEl);
+
+    var dataListStatusEl = document.createElement("li");
+    dataListStatusEl.className = "list-group-item";
+    dataListStatusEl.textContent = "Status: " + animals[i].status;
+    dataListEL.appendChild(dataListStatusEl);
+
+    var dataListDistanceEl = document.createElement("li");
+    dataListDistanceEl.className = "list-group-item";
+    dataListDistanceEl.textContent = Math.trunc(animals[i].distance) + " Miles Away";
+    dataListEL.appendChild(dataListDistanceEl);
+
+    var phoneNumberLinkEl = document.createElement("a");
+    phoneNumberLinkEl.className = "list-group-item"
+    phoneNumberLinkEl.setAttribute("href", "tel:" + animals[i].contact.phone);
+    phoneNumberLinkEl.textContent = "Phone: " + animals[i].contact.phone;
+    dataListEL.appendChild(phoneNumberLinkEl);
+
+    // dogs petfinder link for full description
+    var linkButtonEl = document.createElement("a");
+    linkButtonEl.className = "btn btn-primary";
+    linkButtonEl.setAttribute("href", animals[i].url);
+    linkButtonEl.setAttribute("target", "_blank");
+    linkButtonEl.setAttribute("rel", "noreferrer noopener")
+    linkButtonEl.textContent = "See My Full Profile";
+    cardBodyEl.appendChild(linkButtonEl);
+
   }
 }
 
@@ -109,6 +173,7 @@ var formSubmitHandler = function(event) {
       searchedSizeEl.value = "placeholer";
       maleRadioEL.checked = false;
       femaleRadioEl.checked = false;
+      dogResultsContainerEl.innerHTML = ""
       getToken();
    }
 }
