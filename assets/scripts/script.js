@@ -1,5 +1,5 @@
 var accessToken 
-
+var mainDiv = document.getElementById("main")
 var getToken = function() {
    var apiKey = "0SeVG0ZPvO61L2YkBzWM4OdAfGjG2u03blVa4J8oczVrTryOOe";
    var apiSecret = "EUWQpf8k1Spgp2OJtWE6csrGwFBGwpQfHskVz7fI";
@@ -20,7 +20,7 @@ body: JSON.stringify({grant_type: 'client_credentials',
   })
 
     .then(function(accessToken) {
-      fetch('https://api.petfinder.com/v2/animals', {
+      fetch('https://api.petfinder.com/v2/animals?type=dog&sort=random&limit=10', {
         headers: {
           Authorization: 'Bearer ' + accessToken
         }
@@ -30,6 +30,7 @@ body: JSON.stringify({grant_type: 'client_credentials',
       }).then(function(data) {
         var animals = data.animals;
         loopAndRenderAnimalsOnPage(animals);
+       console.log(data);
       })
 
  
@@ -40,11 +41,20 @@ body: JSON.stringify({grant_type: 'client_credentials',
   });
 };
 
-function loopAndRenderAnimalsOnPage(animals) {
+ function loopAndRenderAnimalsOnPage(animals) {
   console.log('animals', animals);
-  for (var i = 0; i < animals.length; i++) {
-    console.log(animals[i].name + ': ' + animals[i].breeds.primary);
-    
+   for (var i = 0; i < animals.length; i++) {
+     console.log(animals[i].name + ': ' + animals[i].breeds.primary);
+    console.log(animals[i].name + ': ' + animals[i].url)
+    var newImg = document.createElement("img");
+    newImg.src = animals[i].primary_photo_cropped.medium
+    var titleEl = document.createElement("h2");
+    titleEl.textContent = animals[i].name
+    var bioEl = document.createElement("p")
+    bioEl.textContent = animals[i].description;
+    mainDiv.appendChild(newImg);
+    mainDiv.appendChild(titleEl);
+    mainDiv.appendChild(bioEl);
   }
 }
 
