@@ -40,6 +40,6 @@ main form {
 }
 
 /* about us  */
-#about-us h2{
+body h2 {
 	text-shadow: 2px 2px 5px var(--primary-color);
 }
