@@ -1,3 +1,9 @@
+var searchFormEl = document.getElementById("search-form");
+var city = "";
+var state = "";
+var age = "";
+var size = "";
+var sex = "";
 var accessToken 
 
 var getToken = function() {
@@ -61,7 +67,51 @@ function dogBreeds() {
         })
     }
 
+var formSubmitHandler = function(event) {
+    event.preventDefault();
+    
+    // gets searched city value
+    var searchedCityEl = document.getElementById("city");
+    var searchedCity = searchedCityEl.value.trim();
+    city = searchedCity;
 
+    // gets searched state value
+    var searchedStateEl = document.getElementById("state");
+    var searchedState = searchedStateEl.value.trim();
+    state = searchedState;
+
+    // gets selected age
+    var searchedAgeEL = document.getElementById("age");
+    var searchedAge = searchedAgeEL.value;
+    age = searchedAge;
+
+    // gets selected size
+    var searchedSizeEl = document.getElementById("size");
+    var searchedSize = searchedSizeEl.value;
+    size = searchedSize;
+
+    // gets sex value
+    var maleRadioEL = document.getElementById("male")
+    var femaleRadioEl = document.getElementById("female")
+    
+    if (maleRadioEL.checked) {
+      sex = maleRadioEL.value
+    } else if (femaleRadioEl.checked) {
+      sex = femaleRadioEl.value
+    }
+
+    // clears form
+    if (city, state, age, size, sex) {
+      searchedCityEl.value = "";
+      searchedStateEl.value = "";
+      searchedAgeEL.value = "placeholder";
+      searchedSizeEl.value = "placeholer";
+      maleRadioEL.checked = false;
+      femaleRadioEl.checked = false;
+   }
+}
+
+searchFormEl.addEventListener("submit", formSubmitHandler);
 
 dogBreeds()
 
