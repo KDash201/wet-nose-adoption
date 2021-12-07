@@ -17,7 +17,7 @@ var getToken = function() {
       'Content-Type': 'application/json'
     },
 body: JSON.stringify({grant_type: 'client_credentials',
-                      client_id:apiKey,
+                      client_id: apiKey,
                       client_secret: apiSecret})                                         
                     }).then(function(response) {
     return response.json();
