@@ -9,8 +9,9 @@ var accessToken
 var getToken = function() {
    var apiKey = "0SeVG0ZPvO61L2YkBzWM4OdAfGjG2u03blVa4J8oczVrTryOOe";
    var apiSecret = "EUWQpf8k1Spgp2OJtWE6csrGwFBGwpQfHskVz7fI";
+   var apiUrl = 'https://api.petfinder.com/v2/animals?type=dog&location=' + city + ', ' + state + '&age=' + age + '&size=' + size + '&gender=' + sex;
   
-  fetch('https://api.petfinder.com/v2/oauth2/token', {method: 'POST',                                                           
+   fetch('https://api.petfinder.com/v2/oauth2/token', {method: 'POST',                                                           
  headers: {
       'Content-Type': 'application/json'
     },
@@ -26,7 +27,7 @@ body: JSON.stringify({grant_type: 'client_credentials',
   })
 
     .then(function(accessToken) {
-      fetch('https://api.petfinder.com/v2/animals', {
+      fetch(apiUrl, {
         headers: {
           Authorization: 'Bearer ' + accessToken
         }
@@ -108,6 +109,7 @@ var formSubmitHandler = function(event) {
       searchedSizeEl.value = "placeholer";
       maleRadioEL.checked = false;
       femaleRadioEl.checked = false;
+      getToken();
    }
 }
 
@@ -115,4 +117,3 @@ searchFormEl.addEventListener("submit", formSubmitHandler);
 
 dogBreeds()
 
-getToken();
