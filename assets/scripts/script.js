@@ -122,11 +122,6 @@ function loopAndRenderAnimalsOnPage(animals) {
 
     // favorite button
     favoriteButtonEl = document.createElement("button");
-    linkButtonEl.className = "btn btn-dark";
-    linkButtonEl.setAttribute("href", animals[i].url);
-    linkButtonEl.setAttribute("target", "_blank");
-    linkButtonEl.setAttribute("rel", "noreferrer noopener")
-    linkButtonEl.textContent = "Favorites";
 
   }
 }
