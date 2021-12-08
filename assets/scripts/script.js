@@ -57,7 +57,7 @@ function loopAndRenderAnimalsOnPage(animals) {
     
     // create card for dog results
     var cardContainerEl = document.createElement("div");
-    cardContainerEl.className = "card col-6";
+    cardContainerEl.className = "card col-6 w-50 p-3";
     cardContainerEl.setAttribute("id", i);
     dogResultsContainerEl.appendChild(cardContainerEl);
 
