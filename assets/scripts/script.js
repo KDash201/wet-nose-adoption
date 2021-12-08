@@ -6,6 +6,7 @@ var age = "";
 var size = "";
 var sex = "";
 var accessToken 
+var animals
 
 var getToken = function() {
    var apiKey = "0SeVG0ZPvO61L2YkBzWM4OdAfGjG2u03blVa4J8oczVrTryOOe";
@@ -20,7 +21,8 @@ body: JSON.stringify({grant_type: 'client_credentials',
                       client_id: apiKey,
                       client_secret: apiSecret})                                         
                     }).then(function(response) {
-    return response.json();
+                      console.log(response)
+                      return response.json();
   }).then(function(data) {
     console.log('data', data);
     accessToken = data.access_token;
@@ -36,7 +38,7 @@ body: JSON.stringify({grant_type: 'client_credentials',
       }).then(function(response) {
         return response.json()
       }).then(function(data) {
-        var animals = data.animals;
+        animals = data.animals;
         loopAndRenderAnimalsOnPage(animals);
       })
 
@@ -55,6 +57,7 @@ function loopAndRenderAnimalsOnPage(animals) {
     // create card for dog results
     var cardContainerEl = document.createElement("div");
     cardContainerEl.className = "card col-6";
+    cardContainerEl.setAttribute("id", i);
     dogResultsContainerEl.appendChild(cardContainerEl);
 
     // add image to card
@@ -115,6 +118,9 @@ function loopAndRenderAnimalsOnPage(animals) {
     linkButtonEl.setAttribute("rel", "noreferrer noopener")
     linkButtonEl.textContent = "See My Full Profile";
     cardBodyEl.appendChild(linkButtonEl);
+
+    // favorite button
+    var favoriteButtonEl = document.createElement
 
   }
 }
