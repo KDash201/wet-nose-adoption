@@ -7,6 +7,7 @@ var size = "";
 var sex = "";
 var accessToken 
 var animals
+var favoriteButtonEl
 
 var getToken = function() {
    var apiKey = "0SeVG0ZPvO61L2YkBzWM4OdAfGjG2u03blVa4J8oczVrTryOOe";
@@ -120,7 +121,7 @@ function loopAndRenderAnimalsOnPage(animals) {
     cardBodyEl.appendChild(linkButtonEl);
 
     // favorite button
-    var favoriteButtonEl = document.createElement
+    favoriteButtonEl = document.createElement("button");
 
   }
 }
