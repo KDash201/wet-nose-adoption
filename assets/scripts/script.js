@@ -113,7 +113,7 @@ function loopAndRenderAnimalsOnPage(animals) {
 
     // dogs petfinder link for full description
     var linkButtonEl = document.createElement("a");
-    linkButtonEl.className = "btn btn-primary";
+    linkButtonEl.className = "btn btn-dark";
     linkButtonEl.setAttribute("href", animals[i].url);
     linkButtonEl.setAttribute("target", "_blank");
     linkButtonEl.setAttribute("rel", "noreferrer noopener")
@@ -122,6 +122,11 @@ function loopAndRenderAnimalsOnPage(animals) {
 
     // favorite button
     favoriteButtonEl = document.createElement("button");
+    linkButtonEl.className = "btn btn-dark";
+    linkButtonEl.setAttribute("href", animals[i].url);
+    linkButtonEl.setAttribute("target", "_blank");
+    linkButtonEl.setAttribute("rel", "noreferrer noopener")
+    linkButtonEl.textContent = "Favorites";
 
   }
 }
