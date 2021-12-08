@@ -23,23 +23,23 @@ header h1 {
 	 box-shadow: -5px 5px 6px grey;
  }
 /* catch phrase  */
- section div h3 {
+ main div h3 {
 	text-shadow: 2px 2px 5px var(--primary-color);
  }
 
  /* slideshow  */
- section div img {
+ main div img {
 	 border-radius: 15%;
  }
 
  /* form  */
-section form {
+main form {
 	background-color: var(--primary-color);
 	border-radius: 5px;
 	border-color: 2px black;
 }
 
 /* about us  */
-#about-us h2{
+body h2 {
 	text-shadow: 2px 2px 5px var(--primary-color);
 }
