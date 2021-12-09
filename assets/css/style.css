@@ -68,7 +68,7 @@ main {
 .btn-primary {
 	background-color: var(--primary-color);
 	border-color: black;
-	color: blue;
+	color: black;
 }
 
 .card {
