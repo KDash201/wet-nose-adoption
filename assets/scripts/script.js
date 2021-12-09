@@ -126,7 +126,7 @@ function loopAndRenderAnimalsOnPage(animals) {
     favoriteButtonEl = document.createElement("button");
     favoriteButtonEl.className = "btn btn-primary favorite";
     favoriteButtonEl.setAttribute("type", "button");
-    favoriteButtonEl.textContent = "♡";
+    favoriteButtonEl.textContent = "💙";
     cardBodyEl.appendChild(favoriteButtonEl);
     favoriteButtonEl.addEventListener("click", favorites);
   }
