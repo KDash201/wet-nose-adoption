@@ -30,6 +30,7 @@ header h1 {
  /* slideshow  */
  main div img {
 	 border-radius: 15%;
+	 width: -webkit-fill-available;
  }
 
  /* form  */
@@ -53,9 +54,35 @@ main {
 	flex-wrap: wrap;
 }
 
+.favorite:hover {
+	border: 5px solid var(--primary-color);
+}
+.btn-primary.favorite {
+	background-color:white;
+	color:var(--primary-color);
+}
+
+ main img {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card {
+	width: 30%;
+}
+
+.card-img-top {
+	width: 70%;
+}
+
+#favorite-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 /* media queries  */
 @media screen and (max-width: 760px) {
-	main div img {
+	.card {
 		width: 100%;
+		width: -webkit-fill-available;
 	}
-}	
+}
