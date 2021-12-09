@@ -1,60 +1,75 @@
 var searchFormEl = document.getElementById("search-form");
-var dogResultsContainerEl = document.getElementById("dog-results")
+var dogResultsContainerEl = document.getElementById("dog-results");
+var cityEl = document.getElementById("city");
+var cityInputEl = document.getElementById("city-input");
 var city = "";
 var state = "";
 var age = "";
 var size = "";
 var sex = "";
-var accessToken 
-var animals
-var favoriteButtonEl
+var accessToken;
+var animals;
+var favoriteButtonEl;
 
-var getToken = function() {
-   var apiKey = "0SeVG0ZPvO61L2YkBzWM4OdAfGjG2u03blVa4J8oczVrTryOOe";
-   var apiSecret = "EUWQpf8k1Spgp2OJtWE6csrGwFBGwpQfHskVz7fI";
-   var apiUrl = 'https://api.petfinder.com/v2/animals?type=dog&location=' + city + '&location=' + state + '&age=' + age + '&size=' + size + '&gender=' + sex + "&sort=random";
-  
-   fetch('https://api.petfinder.com/v2/oauth2/token', {method: 'POST',                                                           
- headers: {
-      'Content-Type': 'application/json'
+var getToken = function () {
+  var apiKey = "0SeVG0ZPvO61L2YkBzWM4OdAfGjG2u03blVa4J8oczVrTryOOe";
+  var apiSecret = "EUWQpf8k1Spgp2OJtWE6csrGwFBGwpQfHskVz7fI";
+  var apiUrl =
+    "https://api.petfinder.com/v2/animals?type=dog&location=" +
+    city +
+    "&location=" +
+    state +
+    "&age=" +
+    age +
+    "&size=" +
+    size +
+    "&gender=" +
+    sex +
+    "&sort=random";
+
+  fetch("https://api.petfinder.com/v2/oauth2/token", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-body: JSON.stringify({grant_type: 'client_credentials',
-                      client_id: apiKey,
-                      client_secret: apiSecret})                                         
-                    }).then(function(response) {
-                      console.log(response)
-                      return response.json();
-  }).then(function(data) {
-    console.log('data', data);
-    accessToken = data.access_token;
-    return accessToken;
+    body: JSON.stringify({
+      grant_type: "client_credentials",
+      client_id: apiKey,
+      client_secret: apiSecret,
+    }),
   })
+    .then(function (response) {
+      console.log(response);
+      return response.json();
+    })
+    .then(function (data) {
+      console.log("data", data);
+      accessToken = data.access_token;
+      return accessToken;
+    })
 
-    .then(function(accessToken) {
+    .then(function (accessToken) {
       fetch(apiUrl, {
         headers: {
-          Authorization: 'Bearer ' + accessToken
-        }
-        
-      }).then(function(response) {
-        return response.json()
-      }).then(function(data) {
-        animals = data.animals;
-        loopAndRenderAnimalsOnPage(animals);
+          Authorization: "Bearer " + accessToken,
+        },
       })
-
- 
-  
-
-}).catch(function(err) {
-    console.log('err', err);
-  });
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          animals = data.animals;
+          loopAndRenderAnimalsOnPage(animals);
+        });
+    })
+    .catch(function (err) {
+      console.log("err", err);
+    });
 };
 
 function loopAndRenderAnimalsOnPage(animals) {
-  console.log('animals', animals);
+  console.log("animals", animals);
   for (var i = 0; i < animals.length; i++) {
-    
     // create card for dog results
     var cardContainerEl = document.createElement("div");
     cardContainerEl.className = "card col-6";
@@ -62,18 +77,17 @@ function loopAndRenderAnimalsOnPage(animals) {
     dogResultsContainerEl.appendChild(cardContainerEl);
 
     // add image to card
-    
+
     var cardImageEl = document.createElement("img");
     cardImageEl.className = "card-img-top";
-    if (animals[i].primary_photo_cropped){
-    cardImageEl.setAttribute("src", animals[i].primary_photo_cropped.small);
-    cardImageEl.setAttribute('alt', "dog profile picture");
+    if (animals[i].primary_photo_cropped) {
+      cardImageEl.setAttribute("src", animals[i].primary_photo_cropped.small);
+      cardImageEl.setAttribute("alt", "dog profile picture");
     } else {
-      cardImageEl.setAttribute("src", "./assets/images/dog-placeholder.png")
+      cardImageEl.setAttribute("src", "./assets/images/dog-placeholder.png");
     }
     cardContainerEl.appendChild(cardImageEl);
-   
-    
+
     // add body to card
     var cardBodyEl = document.createElement("div");
     cardBodyEl.className = "card-body";
@@ -87,7 +101,7 @@ function loopAndRenderAnimalsOnPage(animals) {
 
     // add some data to card
     var dataListEL = document.createElement("ul");
-    dataListEL.className = "list-group list-group-flush "
+    dataListEL.className = "list-group list-group-flush ";
     cardBodyEl.appendChild(dataListEL);
 
     var dataListBreedEl = document.createElement("li");
@@ -102,11 +116,12 @@ function loopAndRenderAnimalsOnPage(animals) {
 
     var dataListDistanceEl = document.createElement("li");
     dataListDistanceEl.className = "list-group-item";
-    dataListDistanceEl.textContent = Math.trunc(animals[i].distance) + " Miles Away";
+    dataListDistanceEl.textContent =
+      Math.trunc(animals[i].distance) + " Miles Away";
     dataListEL.appendChild(dataListDistanceEl);
 
     var phoneNumberLinkEl = document.createElement("a");
-    phoneNumberLinkEl.className = "list-group-item"
+    phoneNumberLinkEl.className = "list-group-item";
     phoneNumberLinkEl.setAttribute("href", "tel:" + animals[i].contact.phone);
     phoneNumberLinkEl.textContent = "Phone: " + animals[i].contact.phone;
     dataListEL.appendChild(phoneNumberLinkEl);
@@ -116,76 +131,83 @@ function loopAndRenderAnimalsOnPage(animals) {
     linkButtonEl.className = "btn btn-dark";
     linkButtonEl.setAttribute("href", animals[i].url);
     linkButtonEl.setAttribute("target", "_blank");
-    linkButtonEl.setAttribute("rel", "noreferrer noopener")
+    linkButtonEl.setAttribute("rel", "noreferrer noopener");
     linkButtonEl.textContent = "See My Full Profile";
     cardBodyEl.appendChild(linkButtonEl);
 
     // favorite button
     favoriteButtonEl = document.createElement("button");
 
+    saveLocation();
+    saveFavorite();
   }
 }
 
 function dogBreeds() {
-    var apiUrl = "https://dog.ceo/api/breeds/image/random"
+  var apiUrl = "https://dog.ceo/api/breeds/image/random";
 
-    fetch(apiUrl)
-        .then(function(response) {
-            if (response.ok) {
-                response.json().then(function(data) {
-                    console.log(data);
-                })
-            }
-        })
+  fetch(apiUrl).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        console.log(data);
+      });
     }
-
-var formSubmitHandler = function(event) {
-    event.preventDefault();
-    
-    // gets searched city value
-    var searchedCityEl = document.getElementById("city");
-    var searchedCity = searchedCityEl.value.trim();
-    city = searchedCity;
-
-    // gets searched state value
-    var searchedStateEl = document.getElementById("state");
-    var searchedState = searchedStateEl.value.trim();
-    state = searchedState;
-
-    // gets selected age
-    var searchedAgeEL = document.getElementById("age");
-    var searchedAge = searchedAgeEL.value;
-    age = searchedAge;
-
-    // gets selected size
-    var searchedSizeEl = document.getElementById("size");
-    var searchedSize = searchedSizeEl.value;
-    size = searchedSize;
-
-    // gets sex value
-    var maleRadioEL = document.getElementById("male")
-    var femaleRadioEl = document.getElementById("female")
-    
-    if (maleRadioEL.checked) {
-      sex = maleRadioEL.value
-    } else if (femaleRadioEl.checked) {
-      sex = femaleRadioEl.value
-    }
-
-    // clears form
-    if (city, state, age, size, sex) {
-      searchedCityEl.value = "";
-      searchedStateEl.value = "";
-      searchedAgeEL.value = "placeholder";
-      searchedSizeEl.value = "placeholer";
-      maleRadioEL.checked = false;
-      femaleRadioEl.checked = false;
-      dogResultsContainerEl.innerHTML = ""
-      getToken();
-   }
+  });
 }
+
+var formSubmitHandler = function (event) {
+  event.preventDefault();
+
+  // gets searched city value
+  var searchedCityEl = document.getElementById("city");
+  var searchedCity = searchedCityEl.value.trim();
+  city = searchedCity;
+
+  // gets searched state value
+  var searchedStateEl = document.getElementById("state");
+  var searchedState = searchedStateEl.value.trim();
+  state = searchedState;
+
+  // gets selected age
+  var searchedAgeEL = document.getElementById("age");
+  var searchedAge = searchedAgeEL.value;
+  age = searchedAge;
+
+  // gets selected size
+  var searchedSizeEl = document.getElementById("size");
+  var searchedSize = searchedSizeEl.value;
+  size = searchedSize;
+
+  // gets sex value
+  var maleRadioEL = document.getElementById("male");
+  var femaleRadioEl = document.getElementById("female");
+
+  if (maleRadioEL.checked) {
+    sex = maleRadioEL.value;
+  } else if (femaleRadioEl.checked) {
+    sex = femaleRadioEl.value;
+  }
+
+  // clears form
+  if ((city, state, age, size, sex)) {
+    searchedCityEl.value = "";
+    searchedStateEl.value = "";
+    searchedAgeEL.value = "placeholder";
+    searchedSizeEl.value = "placeholer";
+    maleRadioEL.checked = false;
+    femaleRadioEl.checked = false;
+    dogResultsContainerEl.innerHTML = "";
+    getToken();
+  }
+};
+
+var saveLocation = function () {
+  loacalStorage.setItem("city", city);
+};
+var saveFavorite = function () {
+  loacalStorage.setItem("animals", animals);
+};
 
 searchFormEl.addEventListener("submit", formSubmitHandler);
 
-dogBreeds()
-
+dogBreeds();
