@@ -151,23 +151,6 @@ function favorites(event) {
  localStorage.setItem('Favorite Pups', JSON.stringify(favoriteArr))
 }
 
-function dogBreeds() {
-   for (var i = 0; i < 3; i++) {
-     
-     
-   
-  var apiUrl = "https://dog.ceo/api/breeds/image/random"
-
-    fetch(apiUrl)
-        .then(function(response) {
-            if (response.ok) {
-                response.json().then(function(data) {
-                    console.log(data);
-                })
-            }
-        })
-      }
-      }
 
 var formSubmitHandler = function(event) {
     event.preventDefault();
