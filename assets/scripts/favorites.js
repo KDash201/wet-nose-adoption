@@ -1,8 +1,10 @@
 var favoriteContainerEl = document.getElementById("favorite-container");
+var randomImageContainerEl = document.getElementById("random-image-container");
+var randomPups = [];
 
 function loadFavorites() {
  var favoritePups = JSON.parse(localStorage.getItem('Favorite Pups'))
- console.log(favoritePups);
+ 
 
  for (var i = 0; i < favoritePups.length; i++) {
      console.log(favoritePups[i].name)
@@ -63,4 +65,36 @@ function loadFavorites() {
  }
 }
 
+// gets random 3 images from dog api and pushes the image to a empty array
+function dogImages() {
+ 
+    
+    
+      
+     var apiUrl = "https://dog.ceo/api/breeds/image/random"
+     
+     fetch(apiUrl)
+         .then(function(response) {
+             if (response.ok) {
+                 response.json().then(function(data) {
+
+        var randomImageEl = document.createElement("img");
+        randomImageEl.className = "d-block w-50"
+        randomImageEl.setAttribute("src", data.message);
+        randomImageEl.setAttribute("alt", "random dog image");
+        randomImageContainerEl.appendChild(randomImageEl);
+                      
+                 })
+             }
+         })
+   
+         
+     
+    
+    }
+
+
+
  loadFavorites();
+ dogImages();
+ 
