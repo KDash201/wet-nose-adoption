@@ -1,25 +1,35 @@
 var searchFormEl = document.getElementById("search-form");
 var dogResultsContainerEl = document.getElementById("dog-results");
-var cityEl = document.getElementById("city");
-var cityInputEl = document.getElementById("city-input");
 var city = "";
 var state = "";
 var age = "";
 var size = "";
 var sex = "";
-var accessToken 
-var animals
-var favoriteButtonEl
+var accessToken;
+var animals;
+var favoriteButtonEl;
 var favoriteArr = [];
 
-var getToken = function() {
-   var apiKey = "0SeVG0ZPvO61L2YkBzWM4OdAfGjG2u03blVa4J8oczVrTryOOe";
-   var apiSecret = "EUWQpf8k1Spgp2OJtWE6csrGwFBGwpQfHskVz7fI";
-   var apiUrl = 'https://api.petfinder.com/v2/animals?type=dog&location=' + city + '&location=' + state + '&age=' + age + '&size=' + size + '&gender=' + sex + "&sort=random";
-  
-   fetch('https://api.petfinder.com/v2/oauth2/token', {method: 'POST',                                                           
- headers: {
-      'Content-Type': 'application/json'
+var getToken = function () {
+  var apiKey = "0SeVG0ZPvO61L2YkBzWM4OdAfGjG2u03blVa4J8oczVrTryOOe";
+  var apiSecret = "EUWQpf8k1Spgp2OJtWE6csrGwFBGwpQfHskVz7fI";
+  var apiUrl =
+    "https://api.petfinder.com/v2/animals?type=dog&location=" +
+    city +
+    "&location=" +
+    state +
+    "&age=" +
+    age +
+    "&size=" +
+    size +
+    "&gender=" +
+    sex +
+    "&sort=random";
+
+  fetch("https://api.petfinder.com/v2/oauth2/token", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       grant_type: "client_credentials",
@@ -62,7 +72,7 @@ function loopAndRenderAnimalsOnPage(animals) {
     // create card for dog results
     var cardContainerEl = document.createElement("div");
     cardContainerEl.className = "card col-6";
-    
+
     dogResultsContainerEl.appendChild(cardContainerEl);
 
     // add image to card
@@ -106,18 +116,19 @@ function loopAndRenderAnimalsOnPage(animals) {
 
     var dataListDistanceEl = document.createElement("li");
     dataListDistanceEl.className = "list-group-item distance";
-    dataListDistanceEl.textContent = Math.trunc(animals[i].distance) + " Miles Away";
+    dataListDistanceEl.textContent =
+      Math.trunc(animals[i].distance) + " Miles Away";
     dataListEL.appendChild(dataListDistanceEl);
 
     var phoneNumberLinkEl = document.createElement("a");
-    phoneNumberLinkEl.className = "list-group-item phone"
+    phoneNumberLinkEl.className = "list-group-item phone";
     phoneNumberLinkEl.setAttribute("href", "tel:" + animals[i].contact.phone);
     phoneNumberLinkEl.textContent = "Phone: " + animals[i].contact.phone;
     dataListEL.appendChild(phoneNumberLinkEl);
 
     // dogs petfinder link for full description
     var linkButtonEl = document.createElement("a");
-    linkButtonEl.className = "btn btn-dark url";
+    linkButtonEl.className = "btn btn-primary url";
     linkButtonEl.setAttribute("href", animals[i].url);
     linkButtonEl.setAttribute("target", "_blank");
     linkButtonEl.setAttribute("rel", "noreferrer noopener");
@@ -126,7 +137,7 @@ function loopAndRenderAnimalsOnPage(animals) {
 
     // favorite button
     favoriteButtonEl = document.createElement("button");
-    favoriteButtonEl.className = "btn btn-dark favorite";
+    favoriteButtonEl.className = "btn btn-primary favorite";
     favoriteButtonEl.setAttribute("type", "button");
     favoriteButtonEl.textContent = "💙";
     cardBodyEl.appendChild(favoriteButtonEl);
@@ -136,49 +147,22 @@ function loopAndRenderAnimalsOnPage(animals) {
 
 function favorites(event) {
   event.preventDefault();
-  var cardBodEl = this.parentNode
-  var liArr = cardBodEl.getElementsByTagName('ul')[0].childNodes;
-  var nameEl = cardBodEl.getElementsByTagName('h5')[0].textContent
-  var urlEl = cardBodEl.getElementsByClassName('url')[0].href
-  console.log(urlEl)
+  var cardBodEl = this.parentNode;
+  var liArr = cardBodEl.getElementsByTagName("ul")[0].childNodes;
+  var nameEl = cardBodEl.getElementsByTagName("h5")[0].textContent;
+  var urlEl = cardBodEl.getElementsByClassName("url")[0].href;
+  console.log(urlEl);
   var newFavorite = {
     name: nameEl,
     breed: liArr[0].textContent,
     status: liArr[1].textContent,
     distance: liArr[2].textContent,
     phone: liArr[3].textContent,
-    url: urlEl
-  }
- favoriteArr.push(newFavorite)
- localStorage.setItem('Favorite Pups', JSON.stringify(favoriteArr))
+    url: urlEl,
+  };
+  favoriteArr.push(newFavorite);
+  localStorage.setItem("Favorite Pups", JSON.stringify(favoriteArr));
 }
-
-function dogBreeds() {
-   for (var i = 0; i < 3; i++) {
-     
-     
-   
-  var apiUrl = "https://dog.ceo/api/breeds/image/random"
-
-    fetch(apiUrl)
-        .then(function(response) {
-            if (response.ok) {
-                response.json().then(function(data) {
-                    console.log(data);
-                })
-            }
-        })
-      }
-      }
-
-  fetch(apiUrl).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (data) {
-        console.log(data);
-      });
-    }
-  });
-
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
@@ -224,13 +208,6 @@ var formSubmitHandler = function (event) {
     dogResultsContainerEl.innerHTML = "";
     getToken();
   }
-};
-
-var saveLocation = function () {
-  loacalStorage.setItem("city", city);
-};
-var saveFavorite = function () {
-  loacalStorage.setItem("animals", animals);
 };
 
 searchFormEl.addEventListener("submit", formSubmitHandler);
