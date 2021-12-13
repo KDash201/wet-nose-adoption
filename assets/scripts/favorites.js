@@ -97,4 +97,3 @@ function dogImages() {
 
  loadFavorites();
  dogImages();
- 
